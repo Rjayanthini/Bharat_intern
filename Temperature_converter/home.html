@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temperature Converter</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+<div class="col-lg-12 main1 text-center">
+    <h1>Temperature converter</h1>
+</div>
+<div class="container-fluid main2">
+    <div class="col-lg-12 text-center">
+    <div class="row">
+        
+        <div class="col-lg-6 cont1 text-center">
+            <label for="inputUnit" id="text1">Select Input Unit:</label>
+            <select id="inputUnit">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select><br>
+            <input type="text" id="inputValue" placeholder="Enter value">
+        </div>
+        <div class="col-lg-6 cont2 text-center">
+            <label for="outputUnit" id="text2">Select Output Unit:</label>
+            <select id="outputUnit">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select><br>
+            <input type="text" id="outputValue" readonly>
+        </div>
+    </div><br><br>
+    <button onclick="convertTemperature()">Convert</button>
+    </div>
+</div>
+
+
+
+<script>
+function convertTemperature() {
+  var inputUnit = document.getElementById('inputUnit').value;
+  var outputUnit = document.getElementById('outputUnit').value;
+  var inputValue = parseFloat(document.getElementById('inputValue').value);
+  var outputValue = document.getElementById('outputValue');
+
+  if (!isNaN(inputValue)) {
+    if (inputUnit === outputUnit) {
+      // Conversion is not needed, so set the output value the same as the input value
+      outputValue.value = inputValue.toFixed(2);
+    } else {
+      // Perform the conversion based on the selected units
+      if (inputUnit === 'celsius' && outputUnit === 'fahrenheit') {
+        // Celsius to Fahrenheit conversion
+        var fahrenheit = (inputValue * 9/5) + 32;
+        outputValue.value = fahrenheit.toFixed(2);
+      } else if (inputUnit === 'celsius' && outputUnit === 'kelvin') {
+        // Celsius to Kelvin conversion
+        var kelvin = inputValue + 273.15;
+        outputValue.value = kelvin.toFixed(2);
+      } else if (inputUnit === 'fahrenheit' && outputUnit === 'celsius') {
+        // Fahrenheit to Celsius conversion
+        var celsius = (inputValue - 32) * 5/9;
+        outputValue.value = celsius.toFixed(2);
+      } else if (inputUnit === 'fahrenheit' && outputUnit === 'kelvin') {
+        // Fahrenheit to Kelvin conversion
+        var kelvin = (inputValue - 32) * 5/9 + 273.15;
+        outputValue.value = kelvin.toFixed(2);
+      } else if (inputUnit === 'kelvin' && outputUnit === 'celsius') {
+        // Kelvin to Celsius conversion
+        var celsius = inputValue - 273.15;
+        outputValue.value = celsius.toFixed(2);
+      } else if (inputUnit === 'kelvin' && outputUnit === 'fahrenheit') {
+        // Kelvin to Fahrenheit conversion
+        var fahrenheit = (inputValue - 273.15) * 9/5 + 32;
+        outputValue.value = fahrenheit.toFixed(2);
+      }
+    
+}
+  }
+}
+</script>
+
+</body>
+</html>
